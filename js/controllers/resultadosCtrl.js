@@ -1,4 +1,4 @@
-app.controller('resultadosCtrl', ['$scope', '$location', '$routeParams', 'gQueryService',"gVentanaService","gMsgboxService", "$uibModal",  'gBuscarService', function($scope,$location, $routeParams, gQueryService,gVentanaService, gMsgboxService,$uibModal, gBuscarService){
+app.controller('resultadosCtrl', ['$scope', '$location', '$routeParams', 'gQueryService', "$uibModal", function($scope,$location, $routeParams, gQueryService,$uibModal){
   
 $scope.buscar = function(){
   if(!$scope.criterio){
