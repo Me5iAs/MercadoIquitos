@@ -1,0 +1,10 @@
+
+<div class="modal-header">
+  <h3>{{Titulo}}</h3>
+</div>
+<div class="modal-body">
+  <p>{{Mensaje}}</p>
+</div>
+<div class="modal-footer">
+  <button type="boton" ng-repeat="btn in Botones" ng-click="btn[&quot;Funcion&quot;](a)" class="btn btn-primary">{{btn.Texto}}  </button>
+</div>

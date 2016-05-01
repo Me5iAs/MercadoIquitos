@@ -1,0 +1,12 @@
+h1 Productos
+div.row-fluid
+  .panel.panel-default(ng-show='verNuevaPersona')
+    .panel-heading
+      h3.panel-title Productos Registrados
+    .panel-body(ng-disabled='true')
+      g-tabla
+
+    .panel-footer
+      button.btn.btn-primary(ng-click='RegistrarPersona()' ng-disabled='NuevaPersonaForm.$invalid || registrando') Registrar
+      button.btn.btn-danger(ng-click='CancelarNuevaPersona()' ng-disabled='registrando') Cancelar
+      img(src='img/cargach.gif' ng-show='registrando')

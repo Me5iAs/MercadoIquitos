@@ -1,0 +1,57 @@
+
+<section id="resultado">
+  <div class="container-fluid">
+    <div class="row">
+      <div style="padding-left:0px" class="hidden-xs hidden-sm col-md-2 col-lg-2 col-xl-2">
+        <ul style="list-style:none; padding:0px">
+          <li ng-repeat="itempadre in filtro" style="padding-bottom:10px">{{itempadre.Titulo}}
+            <ul style="list-style:none; padding:0px">
+              <li ng-repeat="item in itempadre.items" style="font-family:'arial narrow'"> 
+                <input type="checkbox" ng-model="checkboxModel.value2"/><a ng-click="checkboxModel.value2=!checkboxModel.value2">{{item}}</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div style="background:white; border:1px solid #DDD; border-radius:3px; padding:10px; margin-bottom:50px; box-shadow:0px 0px 20px #DDD" class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-8">
+        <div class="containter-fluid">     
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"> 
+              <div uib-dropdown="" class="btn-group">
+                <button type="button" uib-dropdown-toggle="" class="btn btn-primary">ordenar por :{{listaOrden[vista.orden]}} <span class="caret"></span></button>
+                <ul uib-dropdown-menu="" role="menu" aria-labelledby="single-button">
+                  <li role="menuitem" ng-repeat="orden in listaOrden"><a href="" ng-click="vista.orden=$index">{{orden}} </a></li>
+                </ul>
+              </div>
+            </div>
+            <div style="text-align:right" class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <div uib-dropdown="" class="btn-group">
+                <button type="button" uib-dropdown-toggle="" class="btn btn-primary">ver: {{listaVistas[vista.vista]}} <span class="caret"></span></button>
+                <ul uib-dropdown-menu="" role="menu" aria-labelledby="single-button">
+                  <li role="menuitem" ng-repeat="orden in listaVistas"><a href="" ng-click="vista.vista=$index">{{orden}}  </a>
+                    
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div ng-repeat="art in resultados" style="border-top:1px solid #eee; margin:15px; padding-top:15px" class="row">
+            <div class="resultados-imagen col-xs-4-col-sm-4 col-md-4 col-lg-4 col-xl-4"><a href="#">               <img ng-src="img/{{art.imagen}}"/></a></div>
+            <div class="cuerpo col-xs-8-col-sm-8 col-md-8 col-lg-8 col-xl-8">
+              <h4> <a href="#">{{art.Articulo}}</a></h4>
+              <ul style="list-style:none outside none">
+                <li class="resultados-precio">Precio S/ {{art.Precio}}</li>
+                <li class="resultados-detalle">{{art.comentario}}</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin:0px 15px" class="row">           
+            <uib-pagination boundary-links="true" items-per-page="itemxpag" total-items="resultados.length" ng-model="paginaActual" previous-text="&lt;" next-text="&gt;" first-text="&lt;&lt;" last-text="&gt;&gt;" ng-change="pageChanged()" class="pagination-sm"></uib-pagination>
+            
+          </div>
+        </div>
+      </div>
+      <div style="background:red" class="hidden-xs hidden-sm hidden-md col-lg-2 col-xl-2">tres</div>
+    </div>
+  </div>
+</section>

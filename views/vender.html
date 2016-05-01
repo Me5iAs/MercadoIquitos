@@ -1,0 +1,286 @@
+
+<section id="vender">
+  <div class="container-fluid ContVender">
+    <div class="row">
+      <uib-tabset active="PasoActual" justified="true">
+        <uib-tab index="0" heading="1. Elige un título" disable="EstadoTab1"> 
+          <div class="panel">
+            <div class="panel-body">
+              <div style="text-align:center" class="panel panel-default">
+                <div style="display:inline-block; text-align:left" class="panel-body">Escribe un título para tu publicación. Cuanta más información, ¡mejor!
+                  <form name="TituloForm">
+                    <div style="max-width:800px" class="input-group">     
+                      <input ng-model="Publicacion.Titulo" placeholder="Título de publicación" maxlength="60" required="required" class="form-control"/><span class="input-group-btn">
+                        <button type="button" ng-disabled="TituloForm.$invalid" ng-click="pasar(1)" class="btn btn-primary">Continuar</button></span>
+                    </div><span style="color:#ddd">Quedan {{60 - Publicacion.Titulo.length}}</span>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </uib-tab>
+        <uib-tab index="1" heading="2. Elige qué quieres publicar" disable="EstadoTab2"> 
+          <div class="panel">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                  <div class="panel panel-default">
+                    <div style="height:400px; overflow:auto" class="panel-body">
+                      <div class="list-group"><a ng-repeat="item in nivel1" ng-class="{active: CatNivel1==item.Id}" ng-click="SelNivel1(item.Id)" data-codigo="item.Id" class="list-group-item">{{item.Valor}}</a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                  <div class="panel panel-default">
+                    <div style="height:400px; overflow:auto" class="panel-body">
+                      <div class="list-group"><a ng-repeat="item in nivel2" ng-class="{active: CatNivel2==item.Id}" ng-click="SelNivel2(item.Id)" data-codigo="item.Id" class="list-group-item">{{item.Valor}}</a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                  <div class="panel panel-default">
+                    <div style="height:400px; overflow:auto" class="panel-body">
+                      <div class="list-group"><a ng-repeat="item in nivel3" ng-class="{active: CatNivel3==item.Id}" ng-click="SelNivel3(item.Id)" data-codigo="item.Id" class="list-group-item">{{item.Valor}}</a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                  <div class="panel panel-default">
+                    <div style="height:400px; overflow:auto" class="panel-body">
+                      <div class="list-group"><a ng-repeat="item in nivel4" ng-class="{active: CatNivel4==item.Id}" ng-click="SelNivel4(item.Id)" data-codigo="item.Id" class="list-group-item">{{item.Valor}}</a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <button ng-click="pasar(0)" class="btn btn-primary">Regresar</button>
+                      <button ng-if="CatNivel4" ng-click="pasar(2)" class="btn btn-primary animate-if">Siguiente</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </uib-tab>
+        <uib-tab index="2" heading="3. Describe tu producto" disable="EstadoTab3">
+          <div class="panel">
+            <div class="panel-body">
+              <form name="Tab3Form">
+                <div class="panel panel-default panelvender">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <h2>Describe tu producto</h2>
+                      <h4>Título</h4>
+                      <input ng-model="Publicacion.Titulo" placeholder="Título de publicación" maxlength="60" required="required" style="max-width:800px" class="form-control"/><span style="color:#ddd; font-size:0.5me">Quedan {{60 - Publicacion.Titulo.length}}</span>
+                    </div>
+                    <div class="row">
+                      <h4>Descripción</h4>
+                      <div style="height:25px" class="form-group">
+                        <label for="EstadoNuevo" class="radio-inline">
+                          <input id="EstadoNuevo" type="radio" name="EstadoProducto" value="Nuevo" ng-model="Publicacion.Estado" checked="checked"/>      Nuevo
+                        </label>
+                        <label for="EstadoUsado" class="radio-inline">
+                          <input id="EstadoUsado" type="radio" name="EstadoProducto" value="Usado" ng-model="Publicacion.Estado"/>      Usado
+                        </label>
+                      </div>
+                      <uib-alert type="warning"> <i style="margin-right:10px" class="glyphicon glyphicon-warning-sign"> </i> <strong>No incluyas datos de contacto en tu publicación porque será dada de baja.</strong> El comprador recibirá tus datos luego de comprar.</uib-alert>
+                      <div class="lighter">
+                        <div id="contenidoPub" text-angular="" ng-model="Publicacion.Descripcion" name="descripcion" ta-text-editor-class="border-around container" placeholder="Describe aqui tu producto" ta-html-editor-class="border-around" style="width:100%"></div>
+                      </div>
+                    </div>
+                    <div nv-file-drop="" uploader="uploader">
+                      <div class="row">
+                        <div style="margin-bottom: 40px" class="col-md-12">                         
+                          <h4>Ingresa fotos de tu producto</h4>
+                          <p>Fotos subidas: {{ uploader.queue.length }}</p>
+                          <input type="file" nv-file-select="" uploader="uploader" multiple="" style="margin-bottom:10px"/>
+                          <div ng-repeat="item in uploader.queue" style="text-align:center; margin:2px" class="col-xs-6 col-sm-6 col-md-3 col-lg-2 thumbnail">
+                            <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }">                           </div>
+                            <div style="margin-bottom: 0px; margin-top: 10px" class="progress">
+                              <div role="progressbar" ng-style="{ 'width': item.progress + '%' }" class="progress-bar"></div>
+                              <button type="button" ng-click="item.remove()" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-body">
+                        <button ng-click="pasar(1)" class="btn btn-primary">Regresar</button>
+                        <button ng-disabled="Tab3Form.$invalid || Publicacion.Descripcion=='' || uploader.queue.length ==0" ng-click="pasar(3)" class="btn btn-primary">Siguiente</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </uib-tab>
+        <uib-tab index="3" heading="4. Ingresa Precio y cantidad" disable="EstadoTab4">
+          <div class="panel">
+            <div class="panel-body">
+              <div style="text-align:center" class="panel panel-default">
+                <div style="display:inline-block; text-align:left" class="panel-body">
+                  <form class="form-horizontal">
+                    <fieldset>
+                      <legend>Cantidad y Precio</legend>
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+                              <label for="Cantidad" class="col-md-4 control-label">Cantidad</label>
+                              <div class="col-md-4">
+                                <input id="Cantidad" name="Cantidad" g-validar="entero" ng-model="Publicacion.Cantidad" type="text" placeholder="0" required="" class="form-control input-md text-right"/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+                              <label for="Precio" class="col-md-4 control-label">Precio</label>
+                              <div class="col-md-3">
+                                <select id="Moneda" name="Moneda" ng-model="Publicacion.Moneda" class="form-control">
+                                  <option value="S/">S/</option>
+                                  <option value="$">$</option>
+                                </select>
+                              </div>
+                              <div class="col-md-5">
+                                <input id="Precio" name="Precio" g-validar="decimal" ng-model="Publicacion.Precio" type="text" placeholder="Precio" required="" class="form-control input-md text-right"/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="container-fluid">
+                        <div class="row">                           
+                          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+                              <label for="checkboxes" class="col-md-4 control-label"> Forma de Entrega</label>
+                              <div class="col-md-4">
+                                <label for="FormaEntregaDelivery" style="margin-left:10px" class="checkbox-inline">
+                                  <input id="FormaEntregaDelivery" type="checkbox" ng-model="Publicacion.Delivery" ng-true-value="1" ng-false-value="0"/>      Delivery
+                                </label>
+                                <label for="FormaEntregaRecojo" style="margin-left:10px" class="checkbox-inline">
+                                  <input id="FormaEntregaRecojo" type="checkbox" ng-model="Publicacion.Recojo" ng-true-value="1" ng-false-value="0"/>      Recojo en Tienda
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+                              <label for="checkboxes" class="col-md-4 control-label"> Medios de Pago</label>
+                              <div class="col-md-4">
+                                <label for="MedioEfectivo" style="margin-left:10px" class="checkbox-inline">
+                                  <input id="MedioEfectivo" type="checkbox" ng-model="Publicacion.Efectivo" ng-true-value="1" ng-false-value="0"/>      Efectivo
+                                </label>
+                                <label for="MedioDeposito" style="margin-left:10px" class="checkbox-inline">
+                                  <input id="MedioDeposito" type="checkbox" ng-model="Publicacion.Deposito" ng-true-value="1" ng-false-value="0"/>      Depósitos
+                                </label>
+                                <label for="MedioTarjeta" style="margin-left:10px" class="checkbox-inline">
+                                  <input id="MedioTarjeta" type="checkbox" ng-model="Publicacion.Tarjeta" ng-true-value="1" ng-false-value="0"/>      Tarjeta                            
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </form>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <button ng-click="pasar(2)" class="btn btn-primary">Regresar</button>
+                  <button ng-disabled="(Publicacion.Cantidad=='' || Publicacion.Cantidad==undefined) || (Publicacion.Precio==0 || Publicacion.Precio==undefined) || (Publicacion.Delivery==0 &amp;&amp; Publicacion.Recojo==0) || (Publicacion.Efectivo==0 &amp;&amp; Publicacion.Deposito==0 &amp;&amp; Publicacion.Tarjeta==0)" ng-click="pasar(4)" class="btn btn-primary">Siguiente</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </uib-tab>
+        <uib-tab index="4" heading="5. Confirma tu publicación" disable="EstadoTab5">
+          <div style="border-top: none;" class="panel panel-default">
+            <div class="panel-body panelvender">
+              <form class="form-horizontal">
+                <fieldset>
+                  <legend>Confirma tu publicación</legend>
+                  <div class="container-fluid">
+                    <div class="row">                     
+                      <div class="col-lg-5 col-md-5">
+                        <div style="height: 422px; border:1px solid #ccc">
+                          <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+                            <uib-slide ng-repeat="slide in Publicacion.Imagenes track by slide.id" index="slide.id"><img ng-src="{{slide.image}}" style="margin:auto; max-height:400px"/></uib-slide>
+                          </uib-carousel>
+                        </div>
+                      </div>
+                      <div class="col-lg-7 col-md-7">
+                        <h1 style="margin:0px">{{Publicacion.Titulo}}</h1>
+                        <h2 style="margin:10px 0px">{{Publicacion.Moneda}} {{Publicacion.Precio}}</h2>
+                        <div class="form-group">
+                          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+                            <input name="CantidadComprar" ng-model="CantidadComprar" type="number" min="1" max="{{Publicacion.Cantidad}}" style="text-align:center" readonly="true" class="form-control input-md"/>
+                          </div>
+                          <label for="CantidadComprar" style="text-align:left" class="col-lg-3 col-md-3 col-sm-3 col-xs-6 control-label"> {{Publicacion.Cantidad - CantidadComprar }} disponible(s)</label>
+                          <button ng-show="FBLogged" class="btn btn-primary"><i style="margin-right:10px" class="fa fa-thumbs-o-up"></i>Publicar</button>
+                          <button ng-show="!FBLogged" ng-click="Login()" class="btn btn-primary"> <i style="margin-right:10px" class="fa fa-facebook-square"></i>Inicia sesión para publicar</button>
+                        </div>
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div style="margin-bottom:10px; min-height:100px" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 panel panel-default">
+                              <h4 class="text-center"><i style="margin-right:10px; color:#419641" class="glyphicon glyphicon-credit-card"></i>Medio de pago:</h4>
+                              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">                             
+                                <div ng-show="Publicacion.Efectivo" class="text-center iconos-publicacion"> <i class="fa fa-money"></i><br/>Efectivo</div>
+                              </div>
+                              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div ng-show="Publicacion.Deposito" class="text-center iconos-publicacion"> <i class="fa fa-bank"></i><br/>Deposito</div>
+                              </div>
+                              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div ng-show="Publicacion.Tarjeta" class="text-center iconos-publicacion"> <i class="fa fa-credit-card"></i><br/>Tarjeta</div>
+                              </div>
+                            </div>
+                            <div style="margin-bottom:10px; min-height:100px" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 panel panel-default">
+                              <h4 class="text-center"> <i style="margin-right:10px; color:#419641" class="fa fa-truck"></i>Forma de Entrega:</h4>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div ng-show="Publicacion.Delivery" class="text-center iconos-publicacion"> <i class="fa fa-motorcycle"></i><br/>Delivery</div>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div ng-show="Publicacion.Recojo" class="text-center iconos-publicacion"> <i class="glyphicon glyphicon-home"></i><br/>Recojo</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div><br/>
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel panel-default">
+                              <h4>
+                                 
+                                Vendedor: <br/><i style="margin-right:10px; color:#103480" class="fa fa-facebook-square"></i>{{FBUsuario}} <span ng-show="FBLogged" style="font-size:0.8em">({{Cal}} positivos)</span>
+                              </h4>
+                              <div ng-show="FBLogged" class="progress">
+                                <div style="width: {{Cal}}" ng-class="ClaseBarra" class="progress-bar progress-bar-striped active"><span class="sr-only">{{Cal}} </span></div>
+                              </div>
+                              <div ng-show="!FBLogged" class="progress">                             </div>
+                              <uib-alert type="success">Tu publicación estará activa por 30 días o hasta que se concrece la venta de todas las unidades</uib-alert>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><br/>
+                  <div style="margin: 0px 15px;" class="container-fluid">
+                    <div class="row">
+                      <div style="padding:10px" class="panel panel-default">
+                        <p ng-bind-html="Publicacion.Descripcion"></p>
+                      </div>
+                    </div>
+                  </div><br/>
+                  <button ng-click="pasar(3)" class="btn btn-primary">Regresar      </button>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </uib-tab>
+      </uib-tabset>
+    </div>
+  </div>
+  <button ng-click="mostrar()">mostrar</button>
+</section>

@@ -1,0 +1,189 @@
+﻿<!doctype>
+
+html(lan="es" ng-app="miapp")
+  head
+    meta(charset="UTF-8")
+    meta(name='viewport' content="width=device-width, initial-scale=1.0")
+    title Mercado Iquitos - Compra y venta en iquitos sin comisión
+
+  body
+    header
+      nav.navbar.navbar-custom
+        .container-fluid
+          .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a(href="#")
+              img(src='img/logo-ch2.png' style='height:50px; padding: 4px')
+            //- img.visible-xs(src='img/logo-solo.png' style='height:50px')
+        
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+        
+
+            form.navbar-form.navbar-left(role='search')
+
+              .input-group(ng-controller='resultadosCtrl')
+                input.form-control#buscador(type="text" ng-model='criterio' placeholder="encontrar..." uib-popover="escribe lo que buscas" popover-trigger="mouseenter" popover-placement='bottom')
+                span.input-group-btn
+                  button.btn.btn-default(type='submit' style='height:34px' ng-click='buscar()')
+                    i.glyphicon.glyphicon-search
+              //- .form-group
+                input.form-control#buscador(type='text', placeholder='encontrar...' )               
+                button.btn.btn-primary(type='submit')
+                  i.glyphicon.glyphicon-search
+            ul.nav.navbar-nav.navbar-right(ng-controller='loginCtrl')
+
+              li: a(href='#/registrar' ng-hide='FBLogged')
+                i.fa.fa-user-plus.IconMenu
+                | Registrate
+              li: a(ng-click='Login()' ng-hide='FBLogged') 
+                i.fa.fa-user.IconMenu
+                | Ingresa
+              li.dropdown
+                a.dropdown-toggle(data-toggle='dropdown',ng-show='FBLogged', role='button', aria-haspopup='true', aria-expanded='false' style='padding:10px')
+                  | {{FBUsuario}} 
+                  img(ng-show='FBLogged' ng-src='http://graph.facebook.com/{{FBCodUser}}/picture?type=small' style='height:30px; margin-left:10px')
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a(href='#') 
+                      i.glyphicon.glyphicon-th-list.IconMenu
+                      | Resumen
+                  li
+                    a(href='#') 
+                      i.glyphicon.glyphicon-shopping-cart.IconMenu
+                      | Mis Compras
+                  li
+                    a(href='#') 
+                      i.glyphicon.glyphicon-tags.IconMenu
+                      | Mis Ventas
+
+                  li.divider(role='separator')
+                  li
+                    a(href='#') 
+                      i.glyphicon.glyphicon-cog.IconMenu
+                      | Configuración
+                  li.divider(role='separator')
+                  li
+                    a(ng-click='LogOut()') 
+                      i.glyphicon.glyphicon-log-out.IconMenu
+                      | Cerrar Sesión
+              li: a(href='#/vender')
+                i.fa.fa-shopping-cart.IconMenu
+                | Vender
+              li: a(href='#')
+                i.glyphicon.glyphicon-question-sign.IconMenu
+
+    section#cuerpo(ng-view)
+    footer(src='img/bg.png' style='padding:30px 15px; background:url(img/bgo.png)')
+      .container-fluid
+        .row
+          .col-xs-4.col-sm-4.col-md-4.col-xl-4
+            h4(style='text-align:center') Quienes Somos
+            ul              
+              li: a(href="#") Misión
+              li: a(href="#") Visión
+              li: a(href="#") Valores
+
+          .col-xs-4.col-sm-4.col-md-4.col-xl-4
+            h4(style='text-align:center') Ayuda
+            ul              
+              li: a(href="#") Comprar
+              li: a(href="#") Vender
+              li: a(href="#") Ayuda
+
+          .col-xs-4.col-sm-4.col-md-4.col-xl-4
+            h4(style='text-align:center') Redes Sociales
+            ul              
+              li: a(href="#") Facebook
+              li: a(href="#") Twiter
+              li: a(href="#") Youtube
+    #fb-root
+
+  
+  //- css
+  link(rel="stylesheet" type="text/css" href="css/mi.css")
+  link(rel="stylesheet" type="text/css" href="libs/normalize-3.0.2/normalize.css")
+  link(rel="stylesheet" type="text/css" href="libs/bootstrap-3.3.6/css/bootstrap.min.css")
+  link(rel="stylesheet" type="text/css" href="libs/bootstrap-3.3.6/css/bootstrap-theme.min.css")
+  link(rel="stylesheet" type="text/css" href="libs/font-awesome-4.4.0/css/font-awesome.min.css")
+  
+  //- css de upload
+  link(rel="stylesheet" type="text/css" href="libs/angular-file-upload/css/UploadCss.css")
+  link(rel="stylesheet" type="text/css" href="libs/textAngular-1.5.0/textAngular.css")
+
+  //- librerias
+  script(type="text/javascript" src="libs/angular-file-upload/ext/es5-shim.min.js")    
+  script(type="text/javascript" src="libs/angular-file-upload/ext/es5-sham.min.js")
+  script(type="text/javascript" src="libs/jquery-2.1.1/jquery.min.js")
+  script(type="text/javascript" src="libs/angular-file-upload/ext/console-sham.min.js") 
+  script(type="text/javascript" src="libs/bootstrap-3.3.6/js/bootstrap.min.js")
+
+  script(type="text/javascript" src="libs/angular-1.5.0/angular.min.js")    
+  script(type="text/javascript" src="libs/angular-1.5.0/angular-animate.min.js")
+  script(type="text/javascript" src="libs/angular-1.5.0/angular-sanitize.js")
+  script(type="text/javascript" src="libs/angular-1.5.0/angular-touch.min.js")
+  script(type="text/javascript" src="libs/angular-1.5.0/angular-route.min.js")
+
+  script(type="text/javascript" src="libs/textAngular-1.5.0/textAngular-rangy.min.js")
+  script(type="text/javascript" src="libs/textAngular-1.5.0/textAngular-sanitize.min.js")
+  script(type="text/javascript" src="libs/textAngular-1.5.0/textAngular.min.js")
+  
+  //- css de upload
+  script(type="text/javascript" src="libs/angular-file-upload/ext/angular-file-upload.min.js")
+  
+  //- facebook login
+  script.
+    // Load the SDK asynchronously
+    (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/es_LA/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    window.fbAsyncInit = function() {
+      var app_id = '220550398321588';
+      FB.init({
+        appId      : app_id,
+        status     : true,
+        cookie     : true, 
+        xfbml      : true, 
+        version    : 'v2.1'
+      });
+    }
+
+  //- script(type="text/javascript" src="libs/facebook-app/facebook-api.js")
+  
+  //- js de bootstrap
+  
+  
+  script(type="text/javascript" src="libs/ui-bootstrap-tpls-1.2.4.min.js")
+ 
+    //- controllers
+  script(type='text/javascript' src='js/app.js')
+  script(type='text/javascript' src='js/controllers/categoriasCtrl.js')    
+  script(type='text/javascript' src='js/controllers/resultadosCtrl.js')
+  script(type='text/javascript' src='js/controllers/venderCtrl.js')
+  script(type='text/javascript' src='js/controllers/registrarCtrl.js')
+  script(type='text/javascript' src='js/controllers/loginCtrl.js')
+  script(type='text/javascript' src='js/controllers/userCtrl.js')
+    
+  //- Directives
+  script(type='text/javascript' src='js/directives/gSaltarDirective.js')
+  script(type='text/javascript' src='js/directives/gValidarDirective.js')
+  script(type='text/javascript' src='js/directives/gTablaDirective.js')
+  script(type='text/javascript' src='js/directives/ngThumbDirective.js')
+
+  //- servicios
+  script(type='text/javascript' src='js/services/gVentanaService.js')
+  script(type='text/javascript' src='js/services/gMsgboxService.js')
+  script(type='text/javascript' src='js/services/gQueryService.js')
+  script(type='text/javascript' src='js/services/gBuscarService.js')
+  script(type='text/javascript' src='js/services/gSessionService.js')
+  script(type='text/javascript' src='js/services/upload.js')

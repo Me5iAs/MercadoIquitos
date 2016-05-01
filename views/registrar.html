@@ -1,0 +1,54 @@
+
+<div class="container-fluid ContVender">
+  <div class="row">
+    <div class="panel panel-default">
+      <div ng-hide="FBLogged" style="text-align:center; padding:20px" class="panel-body">
+        <h2>Registrate</h2>
+        <p>Para mayor comodidad puedes elegir entre las siguientes opciones de registro:</p>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">Registro Automático              </div>
+            <div class="panel-body">
+              <button ng-click="Login()" ng-hide="FBLogged" class="btn btn-primary btn-large">Accede a través de tu Facebook!!</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">Registro Manual</div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="FBUser" class="col-md-4 control-label">Usuario</label>
+                  <div class="col-md-4">
+                    <input id="FBUser" name="FBUser" type="text" placeholder="Usuario" required="" class="form-control input-md"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="FbClave" class="col-md-4 control-label">Clave</label>
+                  <div class="col-md-4">
+                    <input id="FbClave" name="FbClave" type="password" placeholder="clave" required="" class="form-control input-md"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="FBemail" class="col-md-4 control-label">E-mail</label>
+                  <div class="col-md-6">
+                    <input id="FBemail" name="FBemail" type="text" placeholder="email" required="" class="form-control input-md"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div style="text-align:center" class="col-md-4 col-md-offset-4">
+                    <button id="singlebutton" name="singlebutton" class="btn btn-primary"> <i class="glyphicon glyphicon-star iconMenu"></i>¡Registrame!</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-show="FBLogged" style="text-align:center; padding:20px" class="pane-body">
+        <h2>¡ya iniciaste sesión!</h2><br/><a href="#/home" class="btn btn-primary btn-large">date una vuelta a ver si compras algo =)</a>
+      </div>
+    </div>
+  </div>
+</div>

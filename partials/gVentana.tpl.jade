@@ -1,0 +1,8 @@
+.modal-header
+  h3 {{Titulo}}
+
+.modal-body
+  p {{Mensaje}}
+
+.modal-footer
+  button.btn.btn-primary(type="boton" ng-repeat='btn in Botones' ng-click='btn["Funcion"](a)') {{btn.Texto}}  

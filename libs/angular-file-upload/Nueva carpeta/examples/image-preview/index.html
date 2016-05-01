@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html id="ng-app" ng-app="app"> <!-- id="ng-app" IE<8 -->
+
+    <head>
+        <title>Uploads only images (with canvas preview)</title>
+        <!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" /> -->
+        <link rel="stylesheet" type="text/css" href="../../../../bootstrap-3.3.6/css/bootstrap.min.css">
+
+        <!-- Fix for old browsers -->
+        <script type="text/javascript" src="../../../ext/es5-shim.min.js"></script>
+        <script type="text/javascript" src="../../../ext/es5-sham.min.js"></script>
+        <!-- // <script src="http://nervgh.github.io/js/es5-shim.min.js"></script> -->
+        <!-- // <script src="http://nervgh.github.io/js/es5-sham.min.js"></script> -->
+        <!-- // <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
+        <script src="../../../../jquery-2.1.1/jquery.min.js"></script>
+        <script src="../../../ext/console-sham.min.js"></script>
+       <!--  // <script src="../console-sham.js"></script> -->
+
+        <!-- // <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
+        <script src="../../../../bootstrap-3.3.6/js/bootstrap.min.js"></script>
+
+        <!--<script src="../bower_components/angular/angular.js"></script>-->
+        <!-- // <script src="http://code.angularjs.org/1.1.5/angular.min.js"></script> -->
+        <script src="../../../../angular-1.5.0/angular.min.js"></script>
+        <script src="../../../../angular-1.5.0/angular-route.min.js"></script>
+        <script src="../../dist/angular-file-upload.min.js"></script>
+        <script src="controllers.js"></script>
+        <script src="../../../js/UploadCtrl.js"></script>
+
+        <!--thumbnails for images-->
+        <!-- // <script src="directives.js"></script> -->
+        <script src="../../../js/ngThumbDirective.js"></script>        
+
+        <style>
+            .my-drop-zone { border: dotted 3px lightgray; }
+            .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+            .another-file-over-class { border: dotted 3px green; }
+
+            html, body { height: 100%; }
+
+            canvas {
+                background-color: #f3f3f3;
+                -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
+                -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
+                box-shadow: 3px 3px 3px 0 #e3e3e3;
+                border: 1px solid #c3c3c3;
+                height: 100px;
+                margin: 6px 0 0 6px;
+            }
+        </style>
+
+    </head>
+
+    <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
+    <div ng-view></div>
+</html>

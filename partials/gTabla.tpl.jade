@@ -1,0 +1,28 @@
+div(ng-class='gTablaPrincipal')  
+  form(name='FiltroFrm')
+    div.input-group(ng-show='Filtro.Mostrar')
+      span.input-group-addon Filtro:    
+      input.form-control#txtFiltro(type="text" ng-model='txtFiltro' placeholder="Palabra a buscar" required)
+      span.input-group-btn
+        button.btn.btn-primary(ng-disabled='FiltroFrm.$invalid' ng-click='FiltrarData()') filtrar!
+        button.btn.btn-danger(ng-disabled='!Filtro.Filtrando' ng-click='Quitarfiltro()') x
+    
+  div(ng-class='gTablaContenedor' style='margin: 5px 0px 5px 0px; overflow:auto; width:100%')  
+    table.table.table-bordered.table-hover.table-striped(ng-class='gTablaCuerpo' ng-if='DataFil.length > 0')    
+      thead
+        tr(ng-class='gTablaCabecera')
+          td(ng-repeat='col in Data.Columnas' style='text-align:center;') {{col}}
+          td(ng-repeat='col in Data.Opciones' ng-if='Data.FilaClick==undefined' style='text-align:center;') {{col.Valor}}
+      tbody
+        //- si no tiene opciones celda in fila
+        tr(ng-class='gTablaFilas' ng-repeat='fila in DataFil' ng-if='Data.FilaClick==undefined')
+          td(ng-repeat='celda in fila track by $index') {{celda}}        
+          td(ng-repeat='celda in Data.Opciones' style='text-align:center;')
+            i(ng-class='celda.Icono' ng-click='celda.funcion(fila)' style='cursor:pointer' Popover-animation="true" popover="{{celda.Descrip}}" popover-trigger="mouseenter" popover-placement="top")
+        
+        //- Si es click en fila
+        tr(ng-class='gTablaFilas' style='cursor:pointer' ng-repeat='fila in DataFil' ng-click='Data.FilaClick(fila)' ng-if='Data.FilaClick!=undefined')      
+          td(ng-repeat='celda in fila track by $index') {{celda}}            
+
+  uib-pagination(total-items="pag.TotalFilas" ng-if='DataFil.length>0' style='margin:0px' ng-model="pag.Actual" items-per-page='pag.filasPag' max-size="pag.Vista" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-change='pageChanged()' previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último")
+

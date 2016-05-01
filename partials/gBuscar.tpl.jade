@@ -1,0 +1,20 @@
+div.modal-header
+  button.close(type="button" data-ng-click="cerrar()") &times;
+  h3 {{gBuscar.Titulo}}
+
+div.modal-body
+  form(name='inputform')
+  div
+    p {{gBuscar.Mensaje}}
+    div.input-group(style='text-align:center')
+      input#gBuscarCriterio.form-control(type="text" style='margin-bottom: 5px' placeholder='Ingrese el criterio de búsqueda' ng-model="gBuscar.Criterio" g-Saltar='Buscar()' required)
+      span.input-group-btn
+        button.btn.btn-default(style='margin-bottom:5px' ng-disabled='inputform.$invalid' ng-Click='Buscar()') Buscar!
+    
+    g-Tabla data
+    uib-alert(type="danger" ng-show='MostrarMensaje') No se han encontrado datos
+//- div.modal-footer
+  //- button.btn(type="button" data-ng-click="gBuscar.Cancelar()") Cancelar
+  //- button.btn.btn-primary(ng-disabled='inputform.$invalid' data-ng-click="gBuscar.ok();") Aceptar
+
+

@@ -1,0 +1,30 @@
+
+<div ng-class="gTablaPrincipal"> 
+  <form name="FiltroFrm">
+    <div ng-show="Filtro.Mostrar" class="input-group"><span class="input-group-addon">Filtro:    </span>
+      <input id="txtFiltro" type="text" ng-model="txtFiltro" placeholder="Palabra a buscar" required="required" class="form-control"/><span class="input-group-btn">
+        <button ng-disabled="FiltroFrm.$invalid" ng-click="FiltrarData()" class="btn btn-primary">filtrar!</button>
+        <button ng-disabled="!Filtro.Filtrando" ng-click="Quitarfiltro()" class="btn btn-danger">x</button></span>
+    </div>
+  </form>
+  <div ng-class="gTablaContenedor" style="margin: 5px 0px 5px 0px; overflow:auto; width:100%"> 
+    <table ng-class="gTablaCuerpo" ng-if="DataFil.length &gt; 0" class="table table-bordered table-hover table-striped">   
+      <thead>
+        <tr ng-class="gTablaCabecera">
+          <td ng-repeat="col in Data.Columnas" style="text-align:center;">{{col}}</td>
+          <td ng-repeat="col in Data.Opciones" ng-if="Data.FilaClick==undefined" style="text-align:center;">{{col.Valor}}</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-class="gTablaFilas" ng-repeat="fila in DataFil" ng-if="Data.FilaClick==undefined">
+          <td ng-repeat="celda in fila track by $index">{{celda}}        </td>
+          <td ng-repeat="celda in Data.Opciones" style="text-align:center;"><i ng-class="celda.Icono" ng-click="celda.funcion(fila)" style="cursor:pointer" Popover-animation="true" popover="{{celda.Descrip}}" popover-trigger="mouseenter" popover-placement="top"></i></td>
+        </tr>
+        <tr ng-class="gTablaFilas" style="cursor:pointer" ng-repeat="fila in DataFil" ng-click="Data.FilaClick(fila)" ng-if="Data.FilaClick!=undefined">     
+          <td ng-repeat="celda in fila track by $index">{{celda}}            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <uib-pagination total-items="pag.TotalFilas" ng-if="DataFil.length&gt;0" style="margin:0px" ng-model="pag.Actual" items-per-page="pag.filasPag" max-size="pag.Vista" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()" previous-text="Anterior" next-text="Siguiente" first-text="Primero" last-text="Último" class="pagination-sm"></uib-pagination>
+</div>

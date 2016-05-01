@@ -1,0 +1,12 @@
+
+<div class="modal-header">
+  <h3>{{opciones.Titulo}}</h3>
+</div>
+<div class="modal-body">
+  <p>{{opciones.Mensaje}}</p>
+</div>
+<div class="modal-footer">
+  <button type="button" ng-click="opciones.FnAceptar()" ng-if="opciones.Botones==1" class="btn btn-primary">Aceptar</button>
+  <button type="button" ng-click="opciones.FnSi()" ng-if="opciones.Botones==2" class="btn btn-primary">Si</button>
+  <button type="button" ng-click="opciones.FnNo();" ng-if="opciones.Botones==2" class="btn btn-primary">No  </button>
+</div></div>
