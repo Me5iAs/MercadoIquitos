@@ -220,7 +220,7 @@
                             <input name="CantidadComprar" ng-model="CantidadComprar" type="number" min="1" max="{{Publicacion.Cantidad}}" style="text-align:center" readonly="true" class="form-control input-md"/>
                           </div>
                           <label for="CantidadComprar" style="text-align:left" class="col-lg-3 col-md-3 col-sm-3 col-xs-6 control-label"> {{Publicacion.Cantidad - CantidadComprar }} disponible(s)</label>
-                          <button ng-show="FBLogged" class="btn btn-primary"><i style="margin-right:10px" class="fa fa-thumbs-o-up"></i>Publicar</button>
+                          <button ng-show="FBLogged" ng-click="Publicar()" ng-disabled="publicando" class="btn btn-primary"><i style="margin-right:10px" class="fa fa-thumbs-o-up"></i>Publicar</button>
                           <button ng-show="!FBLogged" ng-click="Login()" class="btn btn-primary"> <i style="margin-right:10px" class="fa fa-facebook-square"></i>Inicia sesión para publicar</button>
                         </div>
                         <div class="container-fluid">
@@ -283,4 +283,5 @@
     </div>
   </div>
   <button ng-click="mostrar()">mostrar</button>
+  <button ng-click="mostrar2()">mostrar</button>
 </section>

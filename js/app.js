@@ -19,6 +19,7 @@ app.config(['$routeProvider',function($routeProvider) {
     when('/home',{templateUrl:'views/home.html', controller:'categoriasCtrl'}).
     when('/vender',{templateUrl:'views/vender.html', controller:'venderCtrl'}).
     when('/registrar',{templateUrl:'views/registrar.html', controller:'loginCtrl'}).
+    when('/confirma_pub/:idPublicacion',{templateUrl:'views/confirmacion_publicacion.html', controller:'confirmacionCtrl'}).
     when('/result/:criterio/:pagina/:categoria/',{templateUrl:'views/resultados.html', controller:'resultadosCtrl'}).
     
 

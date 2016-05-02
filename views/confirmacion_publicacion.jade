@@ -1,0 +1,12 @@
+.container-fluid.ContVender
+  .row
+    .panel.panel-default
+      .panel-body.text-center
+        h2 ¡felicitaciones!
+        p Tu publicación ha sido registrada con éxito, accede a ella desde el siguiente link:
+        a(href='{{enlace}}') Aqui
+        br
+        p También puedes compartir tu publicación en facebook:
+        .fb-share-button(data-href="http://mercadoiquitos.com/{{enlace}}" data-layout="button" data-mobile-iframe="true")
+          //- .fb-share-button(data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-mobile-iframe="true")
+          //- compartir

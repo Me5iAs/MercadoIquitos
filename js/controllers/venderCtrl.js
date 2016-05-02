@@ -1,13 +1,16 @@
 'use strict';
 
-app.controller('venderCtrl', ['$scope', 'FileUploader', '$location', 'gQueryService','gSessionService','$rootScope', function($scope, FileUploader, $location, gQueryService,gSessionService,$rootScope) {
-
+app.controller('venderCtrl', ['$scope', 'FileUploader', '$location', 'gQueryService','gSessionService','$rootScope', 'gPublicacionService', function($scope, FileUploader, $location, gQueryService,gSessionService,$rootScope,gPublicacionService) {
   
+  $scope.mostrar2 = function(){
+    // console.log($rootScope);
+    console.log($scope.Publicacion);
+  }  
   $scope.mostrar = function(){
     console.log($rootScope);
     // console.log($scope.slides);
   }
-
+// Publicacion.Imagenes
 // iniciales
   // cokie
     var guid = function() {
@@ -39,7 +42,7 @@ app.controller('venderCtrl', ['$scope', 'FileUploader', '$location', 'gQueryServ
     });
 
   // pasos
-    $scope.PasoActual = 4;
+    $scope.PasoActual = 0;
     $scope.EstadoTab1 = true;
     $scope.EstadoTab2 = true;
     $scope.EstadoTab3 = true;
@@ -75,7 +78,7 @@ $scope.Publicacion = {
   CodCategoria  :   $scope.CatNivel4,
   Estado        :   'Nuevo',
   Descripcion   :   '',
-  CantImg       :   uploader.queue.length,
+  CantImg       :   0,
   Imagenes      :   [],
   Cantidad      :   '',
   Moneda        :   'S/',
@@ -84,9 +87,10 @@ $scope.Publicacion = {
   Deposito      :   0,
   Tarjeta       :   0,  
   Delivery      :   1,
-  Recojo        :   1
+  Recojo        :   1,
+  IdUsuario     :   $rootScope.FBCodUser
 };
-
+$scope.publicando =false;
 // inicio
   // $scope.CatNivel1="02000000";
   // $scope.CatNivel2="02010000";
@@ -121,7 +125,8 @@ $scope.Publicacion = {
     slides.push({
       image: 'img/files/'+ sessionStorage.getItem("Idmi")+'/'+n,
       id: currIndex++
-    });    
+    });
+    $scope.Publicacion.CantImg++;
   };
 
   $scope.CantidadComprar = 1;
@@ -295,8 +300,7 @@ $scope.Publicacion = {
     uploader.onProgressAll = function(progress) {
         // console.info('onProgressAll', progress);
     };
-    uploader.onSuccessItem = function(fileItem, response, status, headers) {
-      // console.log(response);
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {      
       $scope.addSlide(response);
       // $scope.Publicacion.Imagenes.push({image: 'img/files/'+ sessionStorage.getItem("Idmi")+'/'+response, id: currIndex++});
     };
@@ -320,8 +324,27 @@ $scope.Publicacion = {
 //carrusell de imágenes
 // var slides = $scope.slides = [];
 // Publicacion.Imagenes
- $scope.Login = function(){ 
+$scope.Login = function(){ 
   gSessionService.logIn();   
+}
+
+$scope.Publicar = function(){
+  $scope.publicando = true;
+  var promesa = gPublicacionService.publicar($scope.Publicacion);
+  promesa.then(
+    function(msg){
+      if (msg.data){
+        // console.log(msg.data);        
+        sessionStorage.removeItem("Idmi");
+        $location.path('/confirma_pub/'+ msg.data.resultado);
+        // alert("Publicacion Finalizda");
+        // $scope.publicando = true;  
+      }else{
+        $scope.publicando = false;
+        alert ("error al publicar")
+      }
+    }
+  );
 }
 
 }]);

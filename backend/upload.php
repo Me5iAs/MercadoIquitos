@@ -1,15 +1,15 @@
 <?php
 
-
+// definir las direcciones
 $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
-
-// $uploadPath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
 $uploadPath = ".." . DIRECTORY_SEPARATOR . "img" .DIRECTORY_SEPARATOR. "files" . DIRECTORY_SEPARATOR . $_GET["idmi"];
-// echo $uploadPath;
+
+// crear directorio si no existe
 if(!is_dir($uploadPath)){
   mkdir($uploadPath, 777);  
 }
 
+// identificar el número de archivo
 $contador=1;
 $dir = opendir($uploadPath);
 while ($elemento = readdir($dir)){
@@ -17,18 +17,7 @@ while ($elemento = readdir($dir)){
         $contador++;
     }
 }
-echo $contador;
-
-// // $uploadPath = '../img/files/';
-// // $uploadPath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
-
-// // 
+// mover
 move_uploaded_file( $tempPath, $uploadPath .DIRECTORY_SEPARATOR. $contador );
-
-// $answer = array( 'answer' => 'File transfer completed' );
-// $json = json_encode( $answer );
-
-// echo $json;
-
-
+echo $contador;
 ?>

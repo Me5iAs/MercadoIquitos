@@ -174,7 +174,7 @@ section#vender
                           .col-lg-2.col-md-2.col-sm-2.col-xs-4
                             input.form-control.input-md(name='CantidadComprar', ng-model='CantidadComprar', type='number', min="1" max="{{Publicacion.Cantidad}}" style='text-align:center' readonly='true')
                           label.col-lg-3.col-md-3.col-sm-3.col-xs-6.control-label(for='CantidadComprar' style='text-align:left')  {{Publicacion.Cantidad - CantidadComprar }} disponible(s)
-                          button.btn.btn-primary(ng-show="FBLogged")
+                          button.btn.btn-primary(ng-show="FBLogged" ng-click='Publicar()' ng-disabled='publicando')
                             i.fa.fa-thumbs-o-up(style='margin-right:10px')
                             | Publicar
                           button.btn.btn-primary(ng-show="!FBLogged" ng-click='Login()') 
@@ -257,3 +257,4 @@ section#vender
                                             
                   button.btn.btn-primary(ng-click='pasar(3)') Regresar      
   button(ng-click='mostrar()') mostrar
+  button(ng-click='mostrar2()') mostrar

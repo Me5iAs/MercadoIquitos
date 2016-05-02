@@ -24,4 +24,5 @@ class conexion {
         return $rs;
     }
 } 
+
 ?>
