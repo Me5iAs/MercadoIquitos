@@ -207,7 +207,7 @@
                     <div class="row">                     
                       <div class="col-lg-5 col-md-5">
                         <div style="height: 422px; border:1px solid #ccc">
-                          <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+                          <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">                           
                             <uib-slide ng-repeat="slide in Publicacion.Imagenes track by slide.id" index="slide.id"><img ng-src="{{slide.image}}" style="margin:auto; max-height:400px"/></uib-slide>
                           </uib-carousel>
                         </div>
@@ -282,6 +282,4 @@
       </uib-tabset>
     </div>
   </div>
-  <button ng-click="mostrar()">mostrar</button>
-  <button ng-click="mostrar2()">mostrar</button>
 </section>

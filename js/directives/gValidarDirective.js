@@ -67,6 +67,18 @@ app.directive('gValidar', function () {
             }else if (TipoVal=="email"){ 
                 if ((!(letra >=97 && letra <= 122)) && (!(letra>=48 &&  letra <=57)) && letra != 64 && letra !=46 && letra !=45 && letra !=95){ element.preventDefault(); }
             }
-        });                
+        });
+
+        element.bind("keyup",function (event){            
+            if ($(element).attr("max") != undefined){
+                var valactual = $(element).val();                
+                if (parseInt(valactual) > parseInt($(element).attr("max"))){
+                    var nvalor = valactual.substring(valactual.length-1,0);                    
+                    event.preventDefault();
+                    $(element).val(nvalor);
+                    
+                }                
+            }
+        })
     };
 });

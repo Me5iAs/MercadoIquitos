@@ -1,0 +1,88 @@
+
+<head>
+  <meta property="og:url" content="http://www.mercadoiquitos.com/#/publicacion/{{Idpub}}"/>
+  <meta property="og:type" content="Mercado Iquitos"/>
+  <meta property="og:title" content="{{Publicacion.Titulo}}"/>
+  <meta property="og:description" content="Compra y Vender seguro en tu propia ciudad"/>
+  <meta property="og:image" content="http://www.mercadoiquitos.com/img/publicaciones/{{Idpub}}/1"/>
+</head>
+<div class="panel panel-default">
+  <div class="panel-body"><a href="javascript:history.back(1)">Volver al listado </a>  |<a href="Publicacion.LinkcatNivel1()">{{Publicacion.Nivel0}} </a>>   <a href="Publicacion.LinkcatNivel2()">{{Publicacion.Nivel1}} </a>> <a href="Publicacion.LinkcatNivel3()">{{Publicacion.Nivel2}} </a>> <a href="Publicacion.LinkcatNivel4()">{{Publicacion.Nivel3}} </a></div>
+</div>
+<div style="border-top: none;" class="panel panel-default panel-pub">
+  <div class="panel-body panelvender">
+    <form class="form-horizontal">
+      <div class="container-fluid">
+        <div class="row">                     
+          <div class="col-lg-5 col-md-5">
+            <div style="height: 422px; border:1px solid #ccc">
+              <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+                <uib-slide ng-repeat="slide in Publicacion.img track by slide" index="slide"><img ng-src="img/publicaciones/{{Idpub}}/{{slide}}" style="margin:auto; max-height:400px"/></uib-slide>
+              </uib-carousel>
+            </div>
+          </div>
+          <div class="col-lg-7 col-md-7">
+            <h1 style="margin:0px">{{Publicacion.Titulo}}</h1>
+            <h2 style="margin:10px 0px">{{Publicacion.Moneda}} {{Publicacion.Precio}}</h2>
+            <div class="form-group">
+              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+                <input name="Compra.Cantidad" ng-model="Compra.Cantidad" g-validar="entero" type="number" min="1" max="{{Publicacion.Cantidad}}" style="text-align:center" class="form-control input-md"/>
+              </div>
+              <label for="Compra.Cantidad" style="text-align:left" class="col-lg-3 col-md-3 col-sm-3 col-xs-6 control-label"> {{Publicacion.Cantidad - Compra.Cantidad }} disponible(s)</label>
+              <button ng-show="FBLogged" ng-click="Comprar()" ng-disabled="publicando" class="btn btn-primary btn-lg"><i style="margin-right:10px" class="fa fa-shopping-cart"></i>Comprar</button>
+              <div data-href="http://www.mercadoiquitos.com/#/publicacion/5" data-layout="button_count" data-action="like" data-share="true" data-show-faces="true" class="fb-like"> </div>
+              <button ng-show="!FBLogged" ng-click="Login()" class="btn btn-primary"> <i style="margin-right:10px" class="fa fa-facebook-square"></i>Inicia sesión para comprar!</button>
+            </div>
+            <div class="container-fluid">
+              <div class="row">
+                <div style="margin-bottom:10px; min-height:100px" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 panel panel-default">
+                  <h4 class="text-center"><i style="margin-right:10px; color:#419641" class="glyphicon glyphicon-credit-card"></i>Medio de pago:</h4>
+                  <div ng-if="Publicacion.Efectivo==1" class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <div class="text-center iconos-publicacion"> <i class="fa fa-money"></i><br/>Efectivo</div>
+                  </div>
+                  <div ng-if="Publicacion.Deposito==1" class="col-lg-4 col-md-4 col-sm-4 col-xs-4"> 
+                    <div class="text-center iconos-publicacion"><i class="fa fa-bank"></i><br/>Deposito</div>
+                  </div>
+                  <div ng-if="Publicacion.Tarjeta==1" class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <div class="text-center iconos-publicacion"><i class="fa fa-credit-card"></i><br/>Tarjeta</div>
+                  </div>
+                </div>
+                <div style="margin-bottom:10px; min-height:100px" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 panel panel-default">
+                  <h4 class="text-center"> <i style="margin-right:10px; color:#419641" class="fa fa-truck"></i>Forma de Entrega:</h4>
+                  <div ng-if="Publicacion.Delivery==1" class="col-lg-6 col-md-6 col-sm-6 col-xs-6"> 
+                    <div class="text-center iconos-publicacion"><i class="fa fa-motorcycle"></i><br/>Delivery</div>
+                  </div>
+                  <div ng-if="Publicacion.Recojo==1" class="col-lg-6 col-md-6 col-sm-6 col-xs-6"> 
+                    <div class="text-center iconos-publicacion"><i class="glyphicon glyphicon-home"></i><br/>Recojo</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel panel-default">
+                  <h4>
+                     
+                    Vendedor: <br/><i style="margin-right:10px; color:#103480" class="fa fa-facebook-square"></i>{{FBUsuario}} <span ng-show="FBLogged" style="font-size:0.8em">({{Publicacion.Reputacion}} puntos)</span>
+                  </h4>
+                  <div ng-show="FBLogged" class="progress">
+                    <div style="width: {{Publicacion.Reputacion}}" ng-class="ClaseBarra" class="progress-bar progress-bar-striped active"><span class="sr-only">{{Publicacion.Reputacion}} </span></div>
+                  </div>
+                  <div ng-show="!FBLogged" class="progress">                                                 </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><br/>
+        <div style="margin: 0px 15px;" class="container-fluid">
+          <div class="row">
+            <div style="padding:10px" class="panel panel-default">
+              <p ng-bind-html="Publicacion.Descripcion"></p>
+            </div>
+          </div>
+        </div><br/>
+        <button ng-click="pasar(3)" class="btn btn-primary">Regresar      </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+head
+  meta(property='og:url', content='http://www.mercadoiquitos.com/#/publicacion/{{Idpub}}')
+  meta(property='og:type', content='Mercado Iquitos')
+  meta(property='og:title', content='{{Publicacion.Titulo}}')
+  meta(property='og:description', content='Compra y Vender seguro en tu propia ciudad')
+  meta(property='og:image', content='http://www.mercadoiquitos.com/img/publicaciones/{{Idpub}}/1')
+
+
+.panel.panel-default
+  .panel-body
+    a(href="javascript:history.back(1)") Volver al listado 
+    |   |
+    a(href="Publicacion.LinkcatNivel1()") {{Publicacion.Nivel0}} 
+    | >   
+    a(href="Publicacion.LinkcatNivel2()") {{Publicacion.Nivel1}} 
+    | > 
+    a(href="Publicacion.LinkcatNivel3()") {{Publicacion.Nivel2}} 
+    | > 
+    a(href="Publicacion.LinkcatNivel4()") {{Publicacion.Nivel3}} 
+
+
+
+.panel.panel-default.panel-pub(style='border-top: none;')
+  .panel-body.panelvender
+    form.form-horizontal
+      .container-fluid
+        .row                      
+          .col-lg-5.col-md-5
+            div(style='height: 422px; border:1px solid #ccc')
+              uib-carousel(active='active', interval='myInterval', no-wrap='noWrapSlides')
+                uib-slide(ng-repeat='slide in Publicacion.img track by slide', index='slide')
+                  img(ng-src='img/publicaciones/{{Idpub}}/{{slide}}', style='margin:auto; max-height:400px')
+
+          .col-lg-7.col-md-7
+              h1(style='margin:0px') {{Publicacion.Titulo}}
+              h2(style='margin:10px 0px') {{Publicacion.Moneda}} {{Publicacion.Precio}}
+              
+              .form-group
+                .col-lg-2.col-md-2.col-sm-2.col-xs-4
+                  input.form-control.input-md(name='Compra.Cantidad', ng-model='Compra.Cantidad', g-validar='entero' type='number', min="1" max="{{Publicacion.Cantidad}}" style='text-align:center' )
+                label.col-lg-3.col-md-3.col-sm-3.col-xs-6.control-label(for='Compra.Cantidad' style='text-align:left')  {{Publicacion.Cantidad - Compra.Cantidad }} disponible(s)
+                button.btn.btn-primary.btn-lg(ng-show="FBLogged" ng-click='Comprar()' ng-disabled='publicando')
+                  i.fa.fa-shopping-cart(style='margin-right:10px')
+                  | Comprar
+
+                .fb-like(
+                  data-href="http://www.mercadoiquitos.com/#/publicacion/5" 
+                  data-layout="button_count" 
+                  data-action="like"
+                  data-share="true"
+                  data-show-faces="true")  
+
+                button.btn.btn-primary(ng-show="!FBLogged" ng-click='Login()') 
+                  i.fa.fa-facebook-square(style='margin-right:10px')
+                  | Inicia sesión para comprar!
+
+              .container-fluid
+                .row
+                  .col-lg-6.col-md-6.col-sm-6.col-xs-12.panel.panel-default(style='margin-bottom:10px; min-height:100px')
+                    h4.text-center
+                      i.glyphicon.glyphicon-credit-card(style='margin-right:10px; color:#419641')
+                      | Medio de pago:
+                    .col-lg-4.col-md-4.col-sm-4.col-xs-4(ng-if='Publicacion.Efectivo==1')
+                      .text-center.iconos-publicacion 
+                        i.fa.fa-money
+                        br
+                        | Efectivo
+                    .col-lg-4.col-md-4.col-sm-4.col-xs-4(ng-if='Publicacion.Deposito==1') 
+                      .text-center.iconos-publicacion
+                        i.fa.fa-bank
+                        br
+                        | Deposito
+                    .col-lg-4.col-md-4.col-sm-4.col-xs-4(ng-if='Publicacion.Tarjeta==1')
+                      .text-center.iconos-publicacion
+                        i.fa.fa-credit-card
+                        br
+                        | Tarjeta
+                  .col-lg-6.col-md-6.col-sm-6.col-xs-12.panel.panel-default(style='margin-bottom:10px; min-height:100px')
+                    h4.text-center 
+                      i.fa.fa-truck(style='margin-right:10px; color:#419641')
+                      | Forma de Entrega:
+                    .col-lg-6.col-md-6.col-sm-6.col-xs-6(ng-if='Publicacion.Delivery==1') 
+                      .text-center.iconos-publicacion
+                        i.fa.fa-motorcycle
+                        br
+                        | Delivery
+                    .col-lg-6.col-md-6.col-sm-6.col-xs-6(ng-if='Publicacion.Recojo==1') 
+                      .text-center.iconos-publicacion
+                        i.glyphicon.glyphicon-home
+                        br
+                        | Recojo
+              
+              .container-fluid
+                .row
+                  .col-lg-12.col-md-12.col-sm-12.col-xs-12.panel.panel-default
+                    h4 
+                      | Vendedor: 
+                      br
+                      i.fa.fa-facebook-square(style='margin-right:10px; color:#103480')
+                      | {{FBUsuario}} 
+                      span(ng-show='FBLogged' style='font-size:0.8em') ({{Publicacion.Reputacion}} puntos)
+
+                    .progress(ng-show='FBLogged')
+                      .progress-bar.progress-bar-striped.active(style='width: {{Publicacion.Reputacion}}' ng-class='ClaseBarra')
+                        span.sr-only {{Publicacion.Reputacion}} 
+
+                    .progress(ng-show='!FBLogged')                                                  
+                  //- .col-lg-6.col-md-6.col-sm-6.col-xs-12.panel.panel-default(style='height:100px; padding:45px 10px')
+                    .fb-share-button(data-href="http://localhost/#/vender" data-layout="button" data-mobile-iframe="true")
+                    //- .fb-share-button(data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-mobile-iframe="true")
+                      
+                    //- compartir
+        br
+        .container-fluid(style='margin: 0px 15px;')
+          .row
+            .panel.panel-default(style='padding:10px')
+              p(ng-bind-html="Publicacion.Descripcion")
+              //- p(ng-bind-html="myText")
+              //- p(ng-bind-html="message")
+      
+        br
+        //- .container-fluid
+          .row
+            .panel.panel-default
+              
+              .fb-comments(data-href="http://localhost/#/vender" data-width="100%" data-numposts="5")
+              //- .fb-comments(data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="100%" data-numposts="5")
+                                  
+        button.btn.btn-primary(ng-click='pasar(3)') Regresar      
+

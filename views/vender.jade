@@ -160,7 +160,7 @@ section#vender
                     .row                      
                       .col-lg-5.col-md-5
                         div(style='height: 422px; border:1px solid #ccc')
-                          uib-carousel(active='active', interval='myInterval', no-wrap='noWrapSlides')
+                          uib-carousel(active='active', interval='myInterval', no-wrap='noWrapSlides')                            
                             uib-slide(ng-repeat='slide in Publicacion.Imagenes track by slide.id', index='slide.id')
                               img(ng-src='{{slide.image}}', style='margin:auto; max-height:400px')
                                                               
@@ -256,5 +256,4 @@ section#vender
                         //- .fb-comments(data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="100%" data-numposts="5")
                                             
                   button.btn.btn-primary(ng-click='pasar(3)') Regresar      
-  button(ng-click='mostrar()') mostrar
-  button(ng-click='mostrar2()') mostrar
+
