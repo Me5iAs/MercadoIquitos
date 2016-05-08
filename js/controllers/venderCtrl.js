@@ -73,6 +73,7 @@ app.controller('venderCtrl', ['$scope', 'FileUploader', '$location', 'gQueryServ
       }
     });
 
+
 $scope.Publicacion = {
   Titulo        :   '',
   CodCategoria  :   $scope.CatNivel4,

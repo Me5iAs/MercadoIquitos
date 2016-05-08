@@ -63,9 +63,10 @@
 
     // cargar imagenes en otro array
     $destino=".." . DIRECTORY_SEPARATOR . "img" .DIRECTORY_SEPARATOR. "publicaciones" . DIRECTORY_SEPARATOR . $_GET["IdPublicacion"] . DIRECTORY_SEPARATOR;
-    $dir = opendir($destino);
-    $imagenes  = "";
-    while ($elemento = readdir($dir)){
+    if(is_dir($destino)){     
+      $dir = opendir($destino);
+      $imagenes  = "";
+      while ($elemento = readdir($dir)){
         if( $elemento != "." && $elemento != ".."){
           if ($imagenes==""){
             $imagenes = $elemento;
@@ -73,10 +74,19 @@
             $imagenes = $imagenes."|". $elemento;
           }
         }
-    }    
-    $arr[0]["img"] = $imagenes;
-
+      }    
+      $arr[0]["img"] = $imagenes;
+    }
     $arr["filas"] = $cont;
-    echo(json_encode($arr));
+    echo(json_encode($arr));  
+  }elseif($_GET["t"]=="error"){
+    
+    $ObjCn = new Conexion();
+    $sql = "CALL sp_error_registrar(".
+      "'".$data->Direccion."',".
+      "'".$data->CodUsuario."',".      
+      "'".$data->Error."')";
+    
+    $ObjCn->EjecutarStore($sql);
   }
 ?>

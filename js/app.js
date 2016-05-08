@@ -22,6 +22,8 @@ app.config(['$routeProvider',function($routeProvider) {
     when('/confirma_pub/:idPublicacion',{templateUrl:'views/confirmacion_publicacion.html', controller:'confirmacionCtrl'}).
     when('/publicacion/:idPublicacion',{templateUrl:'views/publicacion.html', controller:'publicacionCtrl'}).
     when('/result/:criterio/:pagina/:categoria/',{templateUrl:'views/resultados.html', controller:'resultadosCtrl'}).
+    when('/error_pub',{templateUrl:'views/error_publicacion.html', controller:'errorCtrl'}).
+    
     
 
     // when('/productos',{templateUrl:'views/productos.html', controller:'productosCtrl'}).

@@ -17,7 +17,7 @@
           <div class="col-lg-5 col-md-5">
             <div style="height: 422px; border:1px solid #ccc">
               <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-                <uib-slide ng-repeat="slide in Publicacion.img track by slide" index="slide"><img ng-src="img/publicaciones/{{Idpub}}/{{slide}}" style="margin:auto; max-height:400px"/></uib-slide>
+                <uib-slide ng-repeat="slide in Imagenes track by slide.id" index="slide.id"><img ng-src="{{slide.image}}" style="margin:auto; max-height:400px"/></uib-slide>
               </uib-carousel>
             </div>
           </div>
@@ -30,8 +30,17 @@
               </div>
               <label for="Compra.Cantidad" style="text-align:left" class="col-lg-3 col-md-3 col-sm-3 col-xs-6 control-label"> {{Publicacion.Cantidad - Compra.Cantidad }} disponible(s)</label>
               <button ng-show="FBLogged" ng-click="Comprar()" ng-disabled="publicando" class="btn btn-primary btn-lg"><i style="margin-right:10px" class="fa fa-shopping-cart"></i>Comprar</button>
-              <div data-href="http://www.mercadoiquitos.com/#/publicacion/5" data-layout="button_count" data-action="like" data-share="true" data-show-faces="true" class="fb-like"> </div>
               <button ng-show="!FBLogged" ng-click="Login()" class="btn btn-primary"> <i style="margin-right:10px" class="fa fa-facebook-square"></i>Inicia sesión para comprar!</button>
+            </div>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <h4><i style="margin:right:10px" class="glyphicon glyphicon-tag"></i>Artículo {{Publicacion.EstadoArticulo}}</h4>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <div data-href="http://www.mercadoiquitos.com/#/publicacion/5" data-layout="button_count" data-action="like" data-share="true" data-show-faces="true" class="fb-like"> </div>
+                </div>
+              </div>
             </div>
             <div class="container-fluid">
               <div class="row">
@@ -63,24 +72,41 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel panel-default">
                   <h4>
                      
-                    Vendedor: <br/><i style="margin-right:10px; color:#103480" class="fa fa-facebook-square"></i>{{FBUsuario}} <span ng-show="FBLogged" style="font-size:0.8em">({{Publicacion.Reputacion}} puntos)</span>
-                  </h4>
-                  <div ng-show="FBLogged" class="progress">
-                    <div style="width: {{Publicacion.Reputacion}}" ng-class="ClaseBarra" class="progress-bar progress-bar-striped active"><span class="sr-only">{{Publicacion.Reputacion}} </span></div>
-                  </div>
-                  <div ng-show="!FBLogged" class="progress">                                                 </div>
+                    Vendedor: <br/><i style="margin-right:10px; color:#103480" class="fa fa-facebook-square"></i>{{Publicacion.Vendedor}} 
+                  </h4><span>                     
+                    <div class="col-lg-3">Reputacion:</div>
+                    <div class="col-lg-3"><i style="color:#468C00" class="glyphicon glyphicon-plus-sign"></i> {{Publicacion.cal_positivo}}% positivo</div>
+                    <div class="col-lg-3"><i style="color:#ec971f" class="glyphicon glyphicon-record"></i> {{Publicacion.cal_neutro}}% neutral</div>
+                    <div class="col-lg-3"><i style="color:#D90000" class="glyphicon glyphicon-minus-sign"></i> {{Publicacion.cal_negativo}}% negativo</div></span>
                 </div>
+              </div>
+              <div class="row">
+                <uib-progress>
+                  <uib-bar value="Publicacion.cal_negativo" type="danger"><span ng-hide="Publicacion.cal_negativo &lt; 5">{{Publicacion.cal_negativo}}%</span></uib-bar>
+                  <uib-bar value="Publicacion.cal_neutro" type="warning"><span ng-hide="Publicacion.cal_neutro &lt; 5">{{Publicacion.cal_neutro}}%</span></uib-bar>
+                  <uib-bar value="Publicacion.cal_positivo" type="success"><span ng-hide="Publicacion.cal_positivo &lt; 5">{{Publicacion.cal_positivo}}%</span></uib-bar>
+                </uib-progress>
+                
               </div>
             </div>
           </div>
         </div><br/>
-        <div style="margin: 0px 15px;" class="container-fluid">
+        <h4>Descripcion</h4>
+        <div class="container-fluid">
           <div class="row">
             <div style="padding:10px" class="panel panel-default">
               <p ng-bind-html="Publicacion.Descripcion"></p>
             </div>
           </div>
         </div><br/>
+        <h4>Preguntas</h4>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="panel panel-default">
+              <div data-href="http://localhost/#/vender" data-width="100%" data-numposts="5" class="fb-comments"></div>
+            </div>
+          </div>
+        </div>
         <button ng-click="pasar(3)" class="btn btn-primary">Regresar      </button>
       </div>
     </form>

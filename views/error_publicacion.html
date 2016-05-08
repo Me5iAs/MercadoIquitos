@@ -1,0 +1,22 @@
+
+<div class="container-fluid ContVender">
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-body text-center">
+        <h2>Ups!</h2>
+        <h3>Al parecer tenemos un problema...</h3><img src="img/zombies.gif" style="width:100%; max-width:400px"/>
+        <p>Parece que el contenido que buscas no está disponible :-(</p>
+        <p>¿Has introducido bien la dirección? ¿Has llegado desde un enlace externo?. Si crees que hay un error, por favor, comunicánoslo mediante el formulario (si es algo muy grave, facil te ganas algo =P).</p>
+        <form style="text-align:center" class="form-horizontal">
+          <div class="col-lg-8 col-lg-offset-2">
+            <textarea id="textarea" name="textarea" ng-model="ErrorMdl" class="form-control"></textarea>
+          </div>
+          <div style="margin-top:10px" class="col-lg-12">
+            <button ng-click="RegistrarError()" class="btn btn-danger"> <i style="margin-right:10px" class="glyphicon glyphicon-warning-sign"></i>Enviar Error</button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

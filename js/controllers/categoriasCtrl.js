@@ -1,8 +1,8 @@
-app.controller('categoriasCtrl', ['$scope', 'gQueryService',"gVentanaService","gMsgboxService", "$uibModal",  'gBuscarService', function($scope,gQueryService,gVentanaService, gMsgboxService,$uibModal, gBuscarService){
+app.controller('categoriasCtrl', ['$scope', 'gQueryService', function($scope,gQueryService){
 
-$scope.buscar = function(){
-  alert("a");
-}
+// $scope.buscar = function(){
+//   alert("a");
+// }
 
   $scope.categorias = [
 

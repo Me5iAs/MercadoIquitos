@@ -5,12 +5,34 @@ app.controller('publicacionCtrl', ['$scope', '$location', 'gPublicacionService',
 
   // Inicio
     // declarar variable publicacion
+      $scope.Login = function(){ 
+        gSessionService.logIn();   
+      }
       $scope.Idpub = $routeParams.idPublicacion;
       $scope.Publicacion = {};
       $scope.Compra = {};
       $scope.Imagenes = [];
+      $scope.TipoBarra = function(a){
+        if(a <= 33.33){
+          return "danger";
+        }else if(a<=66.66){
+          return "warning";
+        }else{
+          return "info";
+        }
+      }
+      // $scope.Publicacion.img = [];
 
       $scope.Compra.Cantidad = 1;
+      
+      var currIndex = 0;
+      var agregarImagenes = function(imge){
+        
+        $scope.Imagenes.push({
+          image: 'img/publicaciones/'+ $scope.Idpub+'/'+imge,
+          id: currIndex++
+        });
+      }
 
     // Cargar publicacion
       var promesa = gPublicacionService.devolver($routeParams.idPublicacion);
@@ -18,18 +40,9 @@ app.controller('publicacionCtrl', ['$scope', '$location', 'gPublicacionService',
         if(msg.data.filas!='0'){        
           $scope.Publicacion = msg.data[0];
           var a = $scope.Publicacion.img.split("|");
-          var b = [];
-          var currIndex = 0;
-          for (var x=0;x<a.length-1;x++){
-            console.log(a[x]);
-            b.push({
-              image: 'img/files/'+ $scope.Idpub+'/'+a[x],
-              id: currIndex++
-            });            
+          for (var x=0;x<a.length;x++){          
+            agregarImagenes(a[x]);
           }
-
-
-          // console.log($scope.Publicacion);
         }else{
           $location.path("/error_pub");
         }
