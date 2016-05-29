@@ -1,0 +1,259 @@
+section#vender
+  .container-fluid.ContVender
+    .row
+      uib-tabset(active='PasoActual' justified="true")
+        uib-tab(index='0', heading='1. Elige un título' disable='EstadoTab1') 
+          .panel
+            .panel-body
+              .panel.panel-default(style='text-align:center')
+                .panel-body(style='display:inline-block; text-align:left')
+                  | Escribe un título para tu publicación. Cuanta más información, ¡mejor!
+                  form(name="TituloForm")
+                    .input-group(style='max-width:800px')      
+                      input.form-control(ng-model='Publicacion.Titulo' placeholder='Título de publicación' maxlength ='60' required)
+                      span.input-group-btn
+                        button.btn.btn-primary(type="button" ng-disabled="TituloForm.$invalid" ng-click='pasar(1)') Continuar
+                    span(style='color:#ddd') Quedan {{60 - Publicacion.Titulo.length}}
+                //- .panel-footer
+                    button() algo
+        uib-tab(index='1', heading='2. Elige qué quieres publicar', disable='EstadoTab2') 
+          .panel
+            .panel-body
+              .row
+                .col-xs-12.col-sm-6.col-md-3.col-lg-3.col-xl-3
+                  .panel.panel-default
+                    .panel-body(style='height:400px; overflow:auto')
+                      .list-group
+                        a.list-group-item(ng-repeat="item in nivel1" ng-class="{active: CatNivel1==item.Id}" ng-click='SelNivel1(item.Id)' data-codigo='item.Id') {{item.Valor}}
+                .col-xs-12.col-sm-6.col-md-3.col-lg-3.col-xl-3
+                  .panel.panel-default
+                    .panel-body(style='height:400px; overflow:auto')
+                      .list-group
+                        a.list-group-item(ng-repeat="item in nivel2" ng-class="{active: CatNivel2==item.Id}" ng-click='SelNivel2(item.Id)' data-codigo='item.Id') {{item.Valor}}
+                .col-xs-12.col-sm-6.col-md-3.col-lg-3.col-xl-3
+                  .panel.panel-default
+                    .panel-body(style='height:400px; overflow:auto')
+                      .list-group
+                        a.list-group-item(ng-repeat="item in nivel3" ng-class="{active: CatNivel3==item.Id}" ng-click='SelNivel3(item.Id)' data-codigo='item.Id') {{item.Valor}}
+                .col-xs-12.col-sm-6.col-md-3.col-lg-3.col-xl-3
+                  .panel.panel-default
+                     .panel-body(style='height:400px; overflow:auto')
+                      .list-group
+                        a.list-group-item(ng-repeat="item in nivel4" ng-class="{active: CatNivel4==item.Id}" ng-click='SelNivel4(item.Id)' data-codigo='item.Id') {{item.Valor}}
+                .col-xs-12.col-sm-12.col-md-12.col-lg-12.col-xl-12
+                  .panel.panel-default
+                    .panel-body
+                      button.btn.btn-primary(ng-click='pasar(0)') Regresar
+                      button.btn.btn-primary.animate-if(ng-if='CatNivel4' ng-click='pasar(2)') Siguiente
+        uib-tab(index='2', heading='3. Describe tu producto', disable='EstadoTab3')
+          .panel
+            .panel-body
+              form(name="Tab3Form")
+                .panel.panel-default.panelvender
+                  .container-fluid
+                    //- titulo
+                    .row
+                      h2 Describe tu producto
+                      h4 Título
+                      input.form-control(ng-model='Publicacion.Titulo' placeholder='Título de publicación' maxlength ='60' required style='max-width:800px')
+                      span(style='color:#ddd; font-size:0.5me') Quedan {{60 - Publicacion.Titulo.length}}
+                    
+                    //- descripcion
+                    .row
+                      h4 Descripción
+                      .form-group(style='height:25px')
+                        label.radio-inline(for='EstadoNuevo')
+                          input#EstadoNuevo(type='radio', name='EstadoProducto', value='Nuevo', ng-model='Publicacion.Estado' checked='checked')
+                          |       Nuevo
+                        label.radio-inline(for='EstadoUsado')
+                          input#EstadoUsado(type='radio', name='EstadoProducto', value='Usado' ng-model='Publicacion.Estado' )
+                          |       Usado
+
+                      uib-alert(type='warning') 
+                        i.glyphicon.glyphicon-warning-sign(style='margin-right:10px')  
+                        |  <strong>No incluyas datos de contacto en tu publicación porque será dada de baja.</strong> El comprador recibirá tus datos luego de comprar.
+
+                      .lighter
+                        div#contenidoPub(text-angular='', ng-model='Publicacion.Descripcion', name='descripcion', ta-text-editor-class='border-around container', placeholder='Describe aqui tu producto' ta-html-editor-class='border-around' style='width:100%')
+
+                    //- subir                  
+                    div( nv-file-drop='', uploader='uploader')
+                      .row
+                        .col-md-12(style='margin-bottom: 40px')                          
+                          h4 Ingresa fotos de tu producto
+                          p Fotos subidas: {{ uploader.queue.length }}
+                          input(type='file', nv-file-select='', uploader='uploader', multiple='' style='margin-bottom:10px')   
+                          .col-xs-6.col-sm-6.col-md-3.col-lg-2.thumbnail(ng-repeat='item in uploader.queue' style='text-align:center; margin:2px')
+                            //- strong {{ item.file.name }}
+                            div(ng-show='uploader.isHTML5', ng-thumb='{ file: item._file, height: 100 }')                            
+                            .progress(style='margin-bottom: 0px; margin-top: 10px')
+                              .progress-bar(role='progressbar', ng-style="{ 'width': item.progress + '%' }")
+                              button.btn.btn-danger.btn-xs(type='button', ng-click='item.remove()')
+                                span.glyphicon.glyphicon-trash
+                    .panel.panel-default
+                      .panel-body
+                        button.btn.btn-primary(ng-click='pasar(1)') Regresar
+                        button.btn.btn-primary(ng-disabled="Tab3Form.$invalid || Publicacion.Descripcion=='' || uploader.queue.length ==0" ng-click='pasar(3)') Siguiente
+        uib-tab(index='3', heading='4. Ingresa Precio y cantidad', disable='EstadoTab4')
+          .panel
+            .panel-body
+              .panel.panel-default(style='text-align:center')
+                .panel-body(style='display:inline-block; text-align:left')
+                  form.form-horizontal
+                    fieldset
+                      legend Cantidad y Precio
+                      .container-fluid
+                        .row
+                          .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                            .form-group
+                              label.col-md-4.control-label(for='Cantidad') Cantidad
+                              .col-md-4
+                                input#Cantidad.form-control.input-md.text-right(name='Cantidad', g-validar='entero' ng-model='Publicacion.Cantidad' type='text', placeholder='0', required='')
+                          .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                            //- precio
+                            .form-group
+                              label.col-md-4.control-label(for='Precio') Precio
+                              .col-md-3
+                                select#Moneda.form-control(name="Moneda" ng-model='Publicacion.Moneda')
+                                  option(value="S/") S/
+                                  option(value="$") $
+                              .col-md-5
+                                input#Precio.form-control.input-md.text-right(name='Precio', g-validar='decimal' ng-model='Publicacion.Precio' type='text', placeholder='Precio', required='')                        
+                      .container-fluid
+                        .row                            
+                          .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                            //- forma de entrega
+                            .form-group
+                              label.col-md-4.control-label(for='checkboxes')  Forma de Entrega
+                              .col-md-4
+                                label.checkbox-inline(for='FormaEntregaDelivery'  style='margin-left:10px')
+                                  input#FormaEntregaDelivery(type='checkbox' ng-model="Publicacion.Delivery" ng-true-value="1" ng-false-value="0")
+                                  |       Delivery
+                                label.checkbox-inline(for='FormaEntregaRecojo'  style='margin-left:10px')
+                                  input#FormaEntregaRecojo(type='checkbox' ng-model="Publicacion.Recojo" ng-true-value="1" ng-false-value="0")
+                                  |       Recojo en Tienda
+                          .col-xs-12.col-sm-12.col-md-6.col-lg-6
+                            //- medio de pago
+                            .form-group
+                              label.col-md-4.control-label(for='checkboxes')  Medios de Pago
+                              .col-md-4
+                                label.checkbox-inline(for='MedioEfectivo' style='margin-left:10px')
+                                  input#MedioEfectivo(type='checkbox' ng-model="Publicacion.Efectivo" ng-true-value="1" ng-false-value="0")
+                                  |       Efectivo
+                                label.checkbox-inline(for='MedioDeposito' style='margin-left:10px')
+                                  input#MedioDeposito(type='checkbox' ng-model="Publicacion.Deposito" ng-true-value="1" ng-false-value="0")
+                                  |       Depósitos
+                                label.checkbox-inline(for='MedioTarjeta' style='margin-left:10px')
+                                  input#MedioTarjeta(type='checkbox' ng-model="Publicacion.Tarjeta" ng-true-value="1" ng-false-value="0")
+                                  |       Tarjeta                            
+              .panel.panel-default
+                .panel-body
+                  button.btn.btn-primary(ng-click='pasar(2)') Regresar
+                  button.btn.btn-primary(ng-disabled="(Publicacion.Cantidad=='' || Publicacion.Cantidad==undefined) || (Publicacion.Precio==0 || Publicacion.Precio==undefined) || (Publicacion.Delivery==0 && Publicacion.Recojo==0) || (Publicacion.Efectivo==0 && Publicacion.Deposito==0 && Publicacion.Tarjeta==0)" ng-click='pasar(4)') Siguiente
+        uib-tab(index='4', heading='5. Confirma tu publicación', disable='EstadoTab5')
+          .panel.panel-default(style='border-top: none;')
+            .panel-body.panelvender
+              form.form-horizontal
+                fieldset
+                  legend Confirma tu publicación
+                  .container-fluid
+                    .row                      
+                      .col-lg-5.col-md-5
+                        div(style='height: 422px; border:1px solid #ccc')
+                          uib-carousel(active='active', interval='myInterval', no-wrap='noWrapSlides')                            
+                            uib-slide(ng-repeat='slide in Publicacion.Imagenes track by slide.id', index='slide.id')
+                              img(ng-src='{{slide.image}}', style='margin:auto; max-height:400px')
+                                                              
+
+
+                      .col-lg-7.col-md-7
+                        h1(style='margin:0px') {{Publicacion.Titulo}}
+                        h2(style='margin:10px 0px') {{Publicacion.Moneda}} {{Publicacion.Precio}}
+                        
+                        .form-group
+                          .col-lg-2.col-md-2.col-sm-2.col-xs-4
+                            input.form-control.input-md(name='CantidadComprar', ng-model='CantidadComprar', type='number', min="1" max="{{Publicacion.Cantidad}}" style='text-align:center' readonly='true')
+                          label.col-lg-3.col-md-3.col-sm-3.col-xs-6.control-label(for='CantidadComprar' style='text-align:left')  {{Publicacion.Cantidad - CantidadComprar }} disponible(s)
+                          button.btn.btn-primary(ng-show="FBLogged" ng-click='Publicar()' ng-disabled='publicando')
+                            i.fa.fa-thumbs-o-up(style='margin-right:10px')
+                            | Publicar
+                          button.btn.btn-primary(ng-show="!FBLogged" ng-click='Login()') 
+                            i.fa.fa-facebook-square(style='margin-right:10px')
+                            | Inicia sesión para publicar
+
+                        .container-fluid
+                          .row
+                            .col-lg-6.col-md-6.col-sm-6.col-xs-12.panel.panel-default(style='margin-bottom:10px; min-height:100px')
+                              h4.text-center
+                                i.glyphicon.glyphicon-credit-card(style='margin-right:10px; color:#419641')
+                                | Medio de pago:
+                              .col-lg-4.col-md-4.col-sm-4.col-xs-4                              
+                                .text-center.iconos-publicacion(ng-show='Publicacion.Efectivo') 
+                                  i.fa.fa-money
+                                  br
+                                  | Efectivo
+                              .col-lg-4.col-md-4.col-sm-4.col-xs-4
+                                .text-center.iconos-publicacion(ng-show='Publicacion.Deposito') 
+                                  i.fa.fa-bank
+                                  br
+                                  | Deposito
+                              .col-lg-4.col-md-4.col-sm-4.col-xs-4
+                                .text-center.iconos-publicacion(ng-show='Publicacion.Tarjeta') 
+                                  i.fa.fa-credit-card
+                                  br
+                                  | Tarjeta
+                            .col-lg-6.col-md-6.col-sm-6.col-xs-12.panel.panel-default(style='margin-bottom:10px; min-height:100px')
+                              h4.text-center 
+                                i.fa.fa-truck(style='margin-right:10px; color:#419641')
+                                | Forma de Entrega:
+                              .col-lg-6.col-md-6.col-sm-6.col-xs-6
+                                .text-center.iconos-publicacion(ng-show='Publicacion.Delivery') 
+                                  i.fa.fa-motorcycle
+                                  br
+                                  | Delivery
+                              .col-lg-6.col-md-6.col-sm-6.col-xs-6
+                                .text-center.iconos-publicacion(ng-show='Publicacion.Recojo') 
+                                  i.glyphicon.glyphicon-home
+                                  br
+                                  | Recojo
+                        
+                        br
+                        .container-fluid
+                          .row
+                            .col-lg-12.col-md-12.col-sm-12.col-xs-12.panel.panel-default
+                              h4 
+                                | Vendedor: 
+                                br
+                                i.fa.fa-facebook-square(style='margin-right:10px; color:#103480')
+                                | {{FBUsuario}} 
+                                span(ng-show='FBLogged' style='font-size:0.8em') ({{Cal}} positivos)
+
+                              .progress(ng-show='FBLogged')
+                                .progress-bar.progress-bar-striped.active(style='width: {{Cal}}' ng-class='ClaseBarra')
+                                  span.sr-only {{Cal}} 
+
+                              .progress(ng-show='!FBLogged')                              
+                              uib-alert(type='success') Tu publicación estará activa por 30 días o hasta que se concrece la venta de todas las unidades
+                            //- .col-lg-6.col-md-6.col-sm-6.col-xs-12.panel.panel-default(style='height:100px; padding:45px 10px')
+                              .fb-share-button(data-href="http://localhost/#/vender" data-layout="button" data-mobile-iframe="true")
+                              //- .fb-share-button(data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-mobile-iframe="true")
+                                
+                              //- compartir
+                  br
+                  .container-fluid(style='margin: 0px 15px;')
+                    .row
+                      .panel.panel-default(style='padding:10px')
+                        p(ng-bind-html="Publicacion.Descripcion")
+                        //- p(ng-bind-html="myText")
+                        //- p(ng-bind-html="message")
+                
+                  br
+                  //- .container-fluid
+                    .row
+                      .panel.panel-default
+                        
+                        .fb-comments(data-href="http://localhost/#/vender" data-width="100%" data-numposts="5")
+                        //- .fb-comments(data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="100%" data-numposts="5")
+                                            
+                  button.btn.btn-primary(ng-click='pasar(3)') Regresar      
+

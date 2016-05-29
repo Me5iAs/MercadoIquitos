@@ -44,7 +44,8 @@ app.controller('publicacionCtrl', ['$scope', '$location', 'gPublicacionService',
             agregarImagenes(a[x]);
           }
         }else{
-          $location.path("/error_pub");
+          var dire = $location.path();
+          $location.path("/error_pub/publicacion/" +$routeParams.idPublicacion);
         }
       });
 }]);

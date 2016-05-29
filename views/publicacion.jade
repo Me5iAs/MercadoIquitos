@@ -28,8 +28,8 @@ head
           .col-lg-5.col-md-5
             div(style='height: 422px; border:1px solid #ccc')
               uib-carousel(active='active', interval='myInterval', no-wrap='noWrapSlides')
-                uib-slide(ng-repeat='slide in Publicacion.img track by slide', index='slide')
-                  img(ng-src='img/publicaciones/{{Idpub}}/{{slide}}', style='margin:auto; max-height:400px')
+                uib-slide(ng-repeat='slide in Imagenes track by slide.id', index='slide.id')
+                  img(ng-src='{{slide.image}}', style='margin:auto; max-height:400px')
 
           .col-lg-7.col-md-7
               h1(style='margin:0px') {{Publicacion.Titulo}}
@@ -43,16 +43,23 @@ head
                   i.fa.fa-shopping-cart(style='margin-right:10px')
                   | Comprar
 
-                .fb-like(
-                  data-href="http://www.mercadoiquitos.com/#/publicacion/5" 
-                  data-layout="button_count" 
-                  data-action="like"
-                  data-share="true"
-                  data-show-faces="true")  
-
                 button.btn.btn-primary(ng-show="!FBLogged" ng-click='Login()') 
                   i.fa.fa-facebook-square(style='margin-right:10px')
                   | Inicia sesión para comprar!
+
+              .container-fluid
+                .row
+                  .col-lg-6.col-md-6.col-sm-6.col-xs-12
+                    h4
+                      i.glyphicon.glyphicon-tag(style='margin:right:10px')
+                      | Artículo {{Publicacion.EstadoArticulo}}
+                  .col-lg-6.col-md-6.col-sm-6.col-xs-12
+                    .fb-like(
+                      data-href="http://www.mercadoiquitos.com/#/publicacion/5" 
+                      data-layout="button_count" 
+                      data-action="like"
+                      data-share="true"
+                      data-show-faces="true")  
 
               .container-fluid
                 .row
@@ -97,21 +104,40 @@ head
                       | Vendedor: 
                       br
                       i.fa.fa-facebook-square(style='margin-right:10px; color:#103480')
-                      | {{FBUsuario}} 
-                      span(ng-show='FBLogged' style='font-size:0.8em') ({{Publicacion.Reputacion}} puntos)
+                      | {{Publicacion.Vendedor}} 
+                    span                      
+                      .col-lg-3 Reputacion:
+                      .col-lg-3
+                        i.glyphicon.glyphicon-plus-sign(style='color:#468C00')
+                        |  {{Publicacion.cal_positivo}}% positivo
+                      .col-lg-3
+                        i.glyphicon.glyphicon-record(style='color:#ec971f')
+                        |  {{Publicacion.cal_neutro}}% neutral
+                      .col-lg-3
+                        i.glyphicon.glyphicon-minus-sign(style='color:#D90000')
+                        |  {{Publicacion.cal_negativo}}% negativo
+                .row
+                  uib-progress
+                    uib-bar(value="Publicacion.cal_negativo" type="danger")
+                      span(ng-hide="Publicacion.cal_negativo < 5") {{Publicacion.cal_negativo}}%
+                    uib-bar(value="Publicacion.cal_neutro" type="warning")
+                      span(ng-hide="Publicacion.cal_neutro < 5") {{Publicacion.cal_neutro}}%
+                    uib-bar(value="Publicacion.cal_positivo" type="success")
+                      span(ng-hide="Publicacion.cal_positivo < 5") {{Publicacion.cal_positivo}}%
 
-                    .progress(ng-show='FBLogged')
-                      .progress-bar.progress-bar-striped.active(style='width: {{Publicacion.Reputacion}}' ng-class='ClaseBarra')
-                        span.sr-only {{Publicacion.Reputacion}} 
+                  //- .progress
+                  //-   .progress-bar.progress-bar-striped.active(style='width: {{Publicacion.cal_positivo}}%' type='{{TipoBarra(Publicacion.cal_positivo)}}')
+                  //-     span {{Publicacion.cal_positivo}}% 
 
-                    .progress(ng-show='!FBLogged')                                                  
+                    
                   //- .col-lg-6.col-md-6.col-sm-6.col-xs-12.panel.panel-default(style='height:100px; padding:45px 10px')
                     .fb-share-button(data-href="http://localhost/#/vender" data-layout="button" data-mobile-iframe="true")
                     //- .fb-share-button(data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-mobile-iframe="true")
                       
                     //- compartir
         br
-        .container-fluid(style='margin: 0px 15px;')
+        h4 Descripcion
+        .container-fluid
           .row
             .panel.panel-default(style='padding:10px')
               p(ng-bind-html="Publicacion.Descripcion")
@@ -119,10 +145,14 @@ head
               //- p(ng-bind-html="message")
       
         br
-        //- .container-fluid
+        h4 Preguntas
+        .container-fluid
           .row
-            .panel.panel-default
-              
+            .panel.panel-default(style='text-align:center' ng-show="!FBLogged")
+              button.btn.btn-primary.text-center( ng-click='Login()' style='margin:10px') 
+                i.fa.fa-facebook-square(style='margin-right:10px')
+                | Inicia sesión para preguntar!!
+            .panel.panel-default(ng-show="FBLogged")
               .fb-comments(data-href="http://localhost/#/vender" data-width="100%" data-numposts="5")
               //- .fb-comments(data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="100%" data-numposts="5")
                                   

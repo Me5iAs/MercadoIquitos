@@ -3,22 +3,14 @@
     .panel.panel-default
       .panel-body(ng-hide='FBLogged' style='text-align:center; padding:20px')
         h2 Registrate
-        p Para mayor comodidad puedes elegir entre las siguientes opciones de registro:
-        .col-lg-6.col-md-6.col-sm-12.col-xs-12
+        p Para mayor comodidad ahora puedes registrarse a través de facebook:
+        .col-lg-6.col-lg-offset-3.col-md-6.col-lg-offset-6.col-sm-12.col-xs-12
           .panel.panel-default
             .panel-heading Registro Automático              
             .panel-body
               button.btn.btn-primary.btn-large(ng-click='Login()' ng-hide='FBLogged') Accede a través de tu Facebook!!
-          //- h4 Registro a través de tu Facebook:
-            //- button.btn.btn-primary(ng-click='Login()' ng-hide='FBLogged') Iniciar Sesión
-            
-            h6(ng-show='FBLogged') Usted ya está registrado!!!
-            //- button.btn.btn-primary(ng-click='LogOut()' ng-show='FBLogged') Cerrar Sesión
- 
-          //- fb:login-button#facebook-login-button(appid='1234242273269969', scope='public_profile,email')
-          //- #fbStatus
 
-        .col-lg-6.col-md-6.col-sm-12.col-xs-12
+        //- .col-lg-6.col-md-6.col-sm-12.col-xs-12
           .panel.panel-default
             .panel-heading Registro Manual
             .panel-body

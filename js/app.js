@@ -21,15 +21,8 @@ app.config(['$routeProvider',function($routeProvider) {
     when('/registrar',{templateUrl:'views/registrar.html', controller:'loginCtrl'}).
     when('/confirma_pub/:idPublicacion',{templateUrl:'views/confirmacion_publicacion.html', controller:'confirmacionCtrl'}).
     when('/publicacion/:idPublicacion',{templateUrl:'views/publicacion.html', controller:'publicacionCtrl'}).
-    when('/result/:criterio/:pagina/:categoria/',{templateUrl:'views/resultados.html', controller:'resultadosCtrl'}).
-    when('/error_pub',{templateUrl:'views/error_publicacion.html', controller:'errorCtrl'}).
-    
-    
-
-    // when('/productos',{templateUrl:'views/productos.html', controller:'productosCtrl'}).
-    // when('/solicitud',{templateUrl:'views/solicitud.html', controller:'solicitudCtrl'}).
-    // when('/reg_personas',{templateUrl:'views/personas.html', controller:'personasCtrl'}).
-    // when('/login',{templateUrl:'views/login.html', controller:'loginCtrl' });
+    // when('/result/:criterio/:pagina/:categoria/',{templateUrl:'views/resultados.html', controller:'resultadosCtrl'}).
+    when('/error_pub/:pagina/:codigo',{templateUrl:'views/error_publicacion.html', controller:'errorCtrl'}).
     otherwise({redirectTo:'/home'});
 }]);
 

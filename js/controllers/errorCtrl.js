@@ -1,4 +1,4 @@
-app.controller('errorCtrl', ['$scope', '$location','gPublicacionService', '$rootScope', function($scope, $location,gPublicacionService, $rootScope){
+app.controller('errorCtrl', ['$scope', '$location','gPublicacionService', '$rootScope','$routeParams', function($scope, $location,gPublicacionService, $rootScope, $routeParams){
 
   var Usuario;
   if($rootScope.FBLogged){
@@ -8,7 +8,7 @@ app.controller('errorCtrl', ['$scope', '$location','gPublicacionService', '$root
   }
 
   $scope.RegistrarError = function(){
-    var promesa = gPublicacionService.reg_error({Direccion: $location.path(), CodUsuario:Usuario, Error: $scope.ErrorMdl});
+    var promesa = gPublicacionService.reg_error({Pagina: $routeParams.pagina, Codigo:$routeParams.codigo, CodUsuario:Usuario, Error: $scope.ErrorMdl});
     promesa.then();
     alert("Gracias por registrar el error, lo corregiremos en breve, ahora te redireccionaremos a la página principal");
     $location.path("/");
